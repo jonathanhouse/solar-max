@@ -12,7 +12,6 @@ void step_mppt(){
     float c_power = get_power();
 
     if (last_power < c_power) { // if the new calculated power is greater than previous power.
-        c_power = last_power;
         inc_pwm(); // keep walking up the hill.
         
     }
@@ -22,5 +21,6 @@ void step_mppt(){
     else { // we're at the top of the hill
         // maintain this same power point
     }
+    last_power = c_power;
 
 }
