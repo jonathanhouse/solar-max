@@ -1,5 +1,5 @@
 #include "pwm.h"
-
+#define PWM_HARDWARE
 void init_pwm(){
 
     #ifdef PWM_HARDWARE

@@ -18,7 +18,6 @@
 #else
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include <avr/sleep.h>
 #endif
 
 
@@ -26,7 +25,6 @@
 #include "../controller/controller.h"
 #define PWM_FREQUENCY 1000
 #define INIT_DUTY_CYCLE 50
-#define F_CPU 18400000UL
 
 /**
  * @brief Initialize for MCU for PWM usage
