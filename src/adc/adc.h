@@ -11,6 +11,16 @@
 #ifndef ADC_H
 #define ADC_H
 
+#ifdef HARDWARE
+#if defined(__ICCAVR__)
+#include "ioavr.h"
+#include "inavr.h"
+#else
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#endif
+#endif 
+
 #include <stdint.h>
 #include <stdlib.h>
 #define CURRENT_CHN 0

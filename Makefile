@@ -1,10 +1,21 @@
-#CC = gcc
-MCU=atmega64
+MCU=atmega32
 F_CPU=16000000UL
-CC=avr-gcc
-CFLAGS = -g -Wall -Os -Wextra -Wno-strict-aliasing -mmcu=$(MCU) -DF_CPU=$(F_CPU) # -arch arm64#
-BDIR = build
+AVR_CC=avr-gcc
+AVR_CFLAGS = -g -Wall -Os -Wextra -Wno-strict-aliasing -mmcu=$(MCU) -DF_CPU=$(F_CPU) # -arch arm64#
 
+GCC_CC=gcc
+GCC_CFLAGS= -g -Wall -O0 -Wextra -Wno-strict-aliasing #-arch=arm64
+
+ifdef HARDWARE 
+CC=$(AVR_CC)
+CFLAGS = $(AVR_CFLAGS)
+CFLAGS+=-DHARDWARE
+else 
+CC = $(GCC_CC)
+CFLAGS = $(GCC_CFLAGS)
+endif
+
+BDIR = build
 SDIR = src
 OBJS = $(BDIR)/$(SDIR)/*.o
 

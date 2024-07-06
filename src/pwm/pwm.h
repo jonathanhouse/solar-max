@@ -12,12 +12,14 @@
 #ifndef PWM_H
 #define PWM_H
 
+#ifdef HARDWARE
 #if defined(__ICCAVR__)
 #include "ioavr.h"
 #include "inavr.h"
 #else
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#endif
 #endif
 
 

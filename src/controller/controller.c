@@ -81,7 +81,6 @@ void update_controller(){
 
 void update_state(){
 
-    if(controller.c_state == INITALIZE) {return; }
     if (controller.c_bat_voltage >= CONSTANTS.CHARGED_VOLTAGE){
         controller.c_state = PWM_MAINTAIN;
     }

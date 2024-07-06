@@ -1,8 +1,8 @@
 #include "pwm.h"
-#define PWM_HARDWARE
+
 void init_pwm(){
 
-    #ifdef PWM_HARDWARE
+    #ifdef HARDWARE
     // Sets to non-inverting PWM mode. Setting COM1A1 should correspond to 
     // the OC1A pin, which is the PDB pin.
     TCCR1A |= (1 << WGM11) | (1 << COM1A1); 
@@ -25,7 +25,7 @@ void init_pwm(){
 }
 
 void set_duty_cycle(uint8_t new_dc){
-    #ifdef PWM_HARDWARE
+    #ifdef HARDWARE
     TCCR1A &= ~(1 << COM1A1); // Clear COM1A1 bit to temporarily turn off PWM
     OCR1A = (ICR1 + 1) * new_dc / 100; // Calculate and assign a new duty cycle 
     TCCR1A |= (1 << COM1A1); // Set COM1A1 bit to turn back on PWM 
