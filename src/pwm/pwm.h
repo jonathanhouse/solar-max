@@ -12,11 +12,34 @@
 #ifndef PWM_H
 #define PWM_H
 
+#if defined(__ICCAVR__)
+#include "ioavr.h"
+#include "inavr.h"
+#else
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <avr/sleep.h>
+#endif
+
+
+#include <stdint.h>
+#include "../controller/controller.h"
+#define PWM_FREQUENCY 1000
+#define INIT_DUTY_CYCLE 50
+#define F_CPU 18400000UL
+
 /**
  * @brief Initialize for MCU for PWM usage
  * 
  */
 void init_pwm();
+
+/**
+ * @brief Set the duty cycle on the MCU
+ * 
+ * @param new_dc The new duty cycle value (between 0-100)
+ */
+void set_duty_cycle(uint8_t new_dc);
 
 /**
  * @brief Increment the PWM duty cycle 
@@ -32,7 +55,7 @@ void dec_pwm();
 
 /**
  * @brief Keep the current PWM duty cycle
- * @note MIght be a do-nothing function
+ * @note Avoid using this function - will pause PWM for no reason
  * 
  */
 void stay_pwm();

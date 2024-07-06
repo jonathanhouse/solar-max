@@ -1,6 +1,6 @@
 #ifndef TYPES_H
 #define TYPES_H
-
+#include <stdint.h>
 
 struct constants {
 
@@ -46,7 +46,7 @@ typedef struct {
 
     /// @brief The PWM's current duty cycle.
     ///
-    float c_pwm_dc;
+    uint8_t c_pwm_dc;
 
 } Controller; 
 

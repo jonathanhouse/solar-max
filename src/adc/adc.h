@@ -12,10 +12,13 @@
 #define ADC_H
 
 #include <stdint.h>
+#include <stdlib.h>
 #define CURRENT_CHN 0
 #define VOLT_BAT_CHN 1
 #define VOLT_SOL_CHN 2
 #define V_REF 5.0
+#define ITS_AVG 3
+#define I_SCALE 1.0
 
 /**
  * @brief The ADC initialization function.

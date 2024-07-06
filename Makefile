@@ -1,5 +1,6 @@
-CC = gcc
-CFLAGS = -g -Wall -Os -Wextra -Wno-strict-aliasing -v -arch arm64#-mmcu=atmega644a
+#CC = gcc
+CC = avr-gcc
+CFLAGS = -g -Wall -Os -Wextra -Wno-strict-aliasing -mmcu=atmega644a # -arch arm64#
 BDIR = build
 
 SDIR = src

@@ -3,6 +3,10 @@
 
 static Controller controller = {INITALIZE,0,0,0,0};
 
+Controller* get_controller(){
+    return &controller;
+}
+
 void run(){
 
     initialize();

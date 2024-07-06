@@ -57,5 +57,10 @@ void update_controller();
  */
 void update_state();
 
+/**
+ * @brief Get the controller 
+ * 
+ */
+Controller* get_controller();
 
 #endif 

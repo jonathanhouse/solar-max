@@ -31,10 +31,30 @@ float convert_adc(uint16_t val){
     return (val / 1023.0) * V_REF;
 }
 
-float get_current(){ return convert_adc(read_adc(CURRENT_CHN)); }
+float get_current(){ 
+    float sum = 0;
+    for (size_t i = 0; i < ITS_AVG; ++i){ sum += convert_adc(read_adc(CURRENT_CHN)); }
 
-float get_bat_voltage(){ return convert_adc(read_adc(VOLT_BAT_CHN)); }
+    return sum/ITS_AVG ; // should be * I_SCALE but really doesn't matter 
+}
 
-float get_sol_voltage(){ return convert_adc(read_adc(VOLT_SOL_CHN)); }
+float get_bat_voltage(){ 
+    float sum = 0;
+    for (size_t i = 0; i < ITS_AVG; ++i){ sum += convert_adc(read_adc(VOLT_BAT_CHN)); }
 
-float get_power(){ return get_bat_voltage() * get_current(); }
+    return sum/ITS_AVG;
+}
+
+float get_sol_voltage(){ 
+    float sum = 0;
+    for (size_t i = 0; i < ITS_AVG; ++i){ sum += convert_adc(read_adc(VOLT_SOL_CHN)); }
+
+    return sum/ITS_AVG;
+}
+
+float get_power(){  // should be time 1/2 but really scale factor doesn't matter 
+    float sum = 0;
+    for (size_t i = 0; i < ITS_AVG; ++i){ sum += convert_adc(read_adc(VOLT_BAT_CHN)) * convert_adc(read_adc(CURRENT_CHN)); }
+
+    return sum/ITS_AVG;
+ }
