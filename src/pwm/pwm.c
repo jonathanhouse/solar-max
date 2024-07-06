@@ -6,6 +6,10 @@ void init_pwm(){
 
 }
 
+void stay_pwm(){
+    //
+}
+
 void inc_pwm() {
 
     //

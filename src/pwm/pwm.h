@@ -30,4 +30,11 @@ void inc_pwm();
  */
 void dec_pwm();
 
+/**
+ * @brief Keep the current PWM duty cycle
+ * @note MIght be a do-nothing function
+ * 
+ */
+void stay_pwm();
+
 #endif

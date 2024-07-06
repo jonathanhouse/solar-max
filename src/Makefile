@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -g -Wall -Os -Wextra -Wno-strict-aliasing -v#-mmcu=atmega644a
-OBJS = main.o state.o adc.o pwm.o mppt.o controller.o types.o
+OBJS = main.o adc.o pwm.o mppt.o controller.o types.o
 ODIR = ../build/src
 OBJS_ = $(addprefix $(ODIR)/,$(OBJS))
 
@@ -11,9 +11,6 @@ $(ODIR) :
 	mkdir $(ODIR)
 
 $(ODIR)/main.o : main.c
-	$(CC) -c $< -o $@
-
-$(ODIR)/state.o : state/state.c state/state.h 
 	$(CC) -c $< -o $@
 
 $(ODIR)/adc.o : adc/*.c adc/*.h
