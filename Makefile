@@ -1,7 +1,7 @@
 MCU=atmega32
 F_CPU=16000000UL
 AVR_CC=avr-gcc
-AVR_CFLAGS = -g -Wall -Os -Wextra -Wno-strict-aliasing -mmcu=$(MCU) -DF_CPU=$(F_CPU) # -arch arm64#
+AVR_CFLAGS = -g -Wall -O0 -Wextra -Wno-strict-aliasing -mmcu=$(MCU) -DF_CPU=$(F_CPU) # -arch arm64#
 
 GCC_CC=gcc
 GCC_CFLAGS= -g -Wall -O0 -Wextra -Wno-strict-aliasing #-arch=arm64
