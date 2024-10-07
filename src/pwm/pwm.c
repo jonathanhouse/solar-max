@@ -18,7 +18,7 @@ void init_pwm(){
     // output control match A (OC1A) pin
     OCR1A = (ICR1 + 1) * INIT_DUTY_CYCLE / 100;
 
-    // Set PD5 (OC1A pin) as output
+    // Set PD5 (OC1A pin) as output (for ATmega32); PB5 is OC1A for ATmega64
     DDRB |= (1 << PB5);
     #endif
 
