@@ -20,7 +20,10 @@ SDIR = src
 OBJS = $(BDIR)/$(SDIR)/*.o
 
 install : $(BDIR) source 
-	$(CC) $(CFLAGS) -o $(BDIR)/main $(OBJS)
+	$(CC) $(CFLAGS) -o $(BDIR)/main.o $(OBJS)
+	avr-gcc -g -Wall -Os -Werror -Wextra -Wno-strict-aliasing -o $(BDIR)/main.elf $(BDIR)/main.o
+	echo "Compiling main.elf to main.flash.hex"
+	avr-objcopy -j .text -j .data -O ihex $(BDIR)/main.elf $(BDIR)/main.flash.hex
 
 $(BDIR) :
 	echo "ERROR: Make a build directory"
@@ -31,4 +34,4 @@ source :
 
 .PHONY : clean 
 clean : 
-	-rm $(OBJS) $(BDIR)/main
+	-rm $(OBJS) $(BDIR)/main.o

@@ -10,11 +10,11 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     gdb-avr \
     simavr \
-    && apt-get clean
+    apt-get clean \ 
+    && avrdude
 
 WORKDIR /workspace
 
-RUN git clone https://github.com/jonathanhouse/solar-max.git .
+RUN git clone https://github.com/jonathanhouse/solar-max.git 
 
-EXPOSE 1234
-
+CMD ["bash"]
