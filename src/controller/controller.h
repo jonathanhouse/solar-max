@@ -2,7 +2,7 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include <stdio.h>
+//#include <stdio.h>
 #include "../mppt/mppt.h"
 #include "../pwm/pwm.h"
 #include "../adc/adc.h"
