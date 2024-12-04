@@ -1,6 +1,6 @@
 echo "Flashing main.flash.hex to an avr atmega644 with tool avrisp2"
 
-avrdude -p atmega644p -c avrisp2 -v -U flash:w:build/main.flash.hex:i
+avrdude -p atmega324p -c avrisp2 -v -U flash:w:build/main.flash.hex:i 
 
 echo "Done with flash. Hopefully it was succesful"
 

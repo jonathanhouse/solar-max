@@ -1,7 +1,5 @@
-
-
-MCU=atmega32
-F_CPU=16000000UL
+MCU=atmega324p
+F_CPU=1000000UL
 AVR_CC=avr-gcc
 AVR_CFLAGS = -g -Wall -O0 -Wextra -Wno-strict-aliasing -mmcu=$(MCU) -DF_CPU=$(F_CPU) 
 
