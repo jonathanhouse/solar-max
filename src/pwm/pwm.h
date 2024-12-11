@@ -25,6 +25,7 @@
 
 #include <stdint.h>
 #include "../controller/controller.h"
+#include "../types/types.h"
 #define PWM_FREQUENCY 1000
 #define INIT_DUTY_CYCLE 50
 
@@ -45,19 +46,19 @@ void set_duty_cycle(uint8_t new_dc);
  * @brief Increment the PWM duty cycle 
  * 
  */
-void inc_pwm();
+void inc_pwm(Controller *c);
 
 /**
  * @brief Decrement the PWM duty cycle
  * 
  */
-void dec_pwm();
+void dec_pwm(Controller *c);
 
 /**
  * @brief Keep the current PWM duty cycle
  * @note Avoid using this function - will pause PWM for no reason
  * 
  */
-void stay_pwm();
+void stay_pwm(Controller *c);
 
 #endif

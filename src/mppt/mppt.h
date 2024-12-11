@@ -14,6 +14,7 @@
 
 #include "../adc/adc.h"
 #include "../pwm/pwm.h"
+#include "../types/types.h"
 
 /**
  * @brief Initalize the MCU for MPPT
@@ -25,6 +26,6 @@ void init_mppt();
  * @brief Run through one iteration of the MPPT algorithm
  * 
  */
-void step_mppt();
+void step_mppt(Controller* controller);
 
 #endif 

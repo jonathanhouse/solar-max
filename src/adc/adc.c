@@ -37,10 +37,12 @@ float convert_adc(uint16_t val){
 }
 
 float get_current(){ 
+
     float sum = 0;
     for (size_t i = 0; i < ITS_AVG; ++i){ sum += convert_adc(read_adc(CURRENT_CHN)); }
 
     return sum/ITS_AVG ; // should be * I_SCALE but really doesn't matter 
+    
 }
 
 float get_bat_voltage(){ 

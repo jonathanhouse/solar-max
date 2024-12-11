@@ -1,38 +1,52 @@
 #include "controller.h"
+#include <stdio.h>
 
 
-static Controller controller = {INITALIZE,0,0,0,0};
+// Controller* get_controller(){
+//     return &controller;
+// }
 
-Controller* get_controller(){
-    return &controller;
+void print_controller(Controller* controller){
+    printf("Controller state: %d\n", controller->c_state);
+    printf("System voltage: %f\n", controller->c_bat_voltage);
+    printf("System current: %f\n", controller->c_current);
+    printf("PWM vaue: %d\n", controller->c_pwm_dc);
+    printf("\n");
 }
 
-void run(){
+void run(Controller* controller){
 
-    initialize();
-    while(1){
+    static int first_run = 1;
+    if(first_run == 1){
+        initialize();
+        #ifndef HARDWARE
+        print_controller(controller);
+        #endif
+        first_run = 0;
+    }
 
-        update_controller();
+    update_controller(controller);
+    #ifndef HARDWARE
+    print_controller(controller);
+    #endif
 
-        switch(controller.c_state){
+    switch(controller->c_state){
 
-            case PWM_MAINTAIN: 
-                pwm_maintain();
-                break;
+        case PWM_MAINTAIN: 
+            pwm_maintain(controller);
+            break;
 
-            case MPPT_CHARGE:
-                mppt_charge();
-                break;
+        case MPPT_CHARGE:
+            mppt_charge(controller);
+            break;
 
-            case SAFE: 
-                safe();
-                break;
+        case SAFE: 
+            safe();
+            break;
 
-            default: 
-                error();
-                break;
-        }
-
+        default: 
+            error(controller);
+            break;
     }
 
 }
@@ -46,15 +60,16 @@ void initialize(){
 
 }
 
-void pwm_maintain(){
+void pwm_maintain(Controller* controller){
 
-    stay_pwm();
+    stay_pwm(controller);
+    controller->c_pwm_dc = 50; // set to halfway
 
 }
 
-void mppt_charge(){
+void mppt_charge(Controller* controller){
 
-    step_mppt();
+    step_mppt(controller);
 
 }
 
@@ -64,28 +79,36 @@ void safe(){
 
 }
 
-void error(){
+void error(Controller* controller){
 
-    controller.c_state = SAFE; 
-
-}
-
-void update_controller(){
-
-    controller.c_current = get_current();
-    controller.c_sol_voltage = get_sol_voltage();
-    controller.c_bat_voltage = get_bat_voltage();
-    update_state();
+    controller->c_state = SAFE; 
 
 }
 
-void update_state(){
+void update_controller(Controller* controller){
 
-    if (controller.c_bat_voltage >= CONSTANTS.CHARGED_VOLTAGE){
-        controller.c_state = PWM_MAINTAIN;
+
+    #ifdef HARDWARE 
+    controller->c_current = get_current();
+    controller->c_sol_voltage = get_sol_voltage();
+    controller->c_bat_voltage = get_bat_voltage();
+    #endif 
+
+    // if no hardware, just keep the value the same 
+    update_state(controller);
+
+}
+
+void update_state(Controller* controller){
+
+    if (controller->c_bat_voltage >= CONSTANTS.CHARGED_VOLTAGE){
+        controller->c_state = PWM_MAINTAIN;
     }
-    else {
-        controller.c_state = MPPT_CHARGE;
+    else if (controller->c_bat_voltage < CONSTANTS.CHARGED_VOLTAGE && controller->c_bat_voltage > 0){
+        controller->c_state = MPPT_CHARGE;
+    }
+    else { // error has occured, switch to safe mode 
+        controller->c_state = SAFE;
     }
 
 }

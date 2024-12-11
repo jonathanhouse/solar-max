@@ -48,6 +48,9 @@ typedef struct {
     ///
     uint8_t c_pwm_dc;
 
+    /// @brief Increased (1), decreased (-1), or maintained (0) voltage on previous step
+    int8_t c_step_state;
+
 } Controller; 
 
 #endif

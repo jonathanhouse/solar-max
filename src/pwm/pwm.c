@@ -32,26 +32,32 @@ void set_duty_cycle(uint8_t new_dc){
     #endif
 }
 
-void stay_pwm(){
-    set_duty_cycle(get_controller()->c_pwm_dc);
+void stay_pwm(Controller* controller){
+    // no need to re-update this value
+    controller->c_step_state = 0;
+    //set_duty_cycle(controller->c_pwm_dc);
 }
 
-void inc_pwm() {
+void inc_pwm(Controller* c) {
 
-    Controller* c = get_controller();
-
-    if(++(c->c_pwm_dc) <= 100) { c->c_pwm_dc++; }
-
-    set_duty_cycle(get_controller()->c_pwm_dc);
-
+    if((c->c_pwm_dc + 1) <= 100){
+        c->c_pwm_dc++;
+        c->c_step_state = 1;
+        set_duty_cycle(c->c_pwm_dc);
+    }
+    else {
+        c->c_step_state = 0;
+    }
 }
 
-void dec_pwm() {
+void dec_pwm(Controller* c) {
 
-    Controller* c = get_controller();
-
-    if(--(c->c_pwm_dc) > 0) { c->c_pwm_dc--; }
-
-    set_duty_cycle(get_controller()->c_pwm_dc);
-
+    if((c->c_pwm_dc - 1) > 0){
+        c->c_pwm_dc--;
+        c->c_step_state = -1;
+        set_duty_cycle(c->c_pwm_dc);
+    }
+    else {
+        c->c_step_state = 0;
+    }
 }

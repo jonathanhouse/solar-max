@@ -1,3 +1,3 @@
 #include "types.h"
 
-const struct constants CONSTANTS = {10.0};
+const struct constants CONSTANTS = {14.5};
